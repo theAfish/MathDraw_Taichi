@@ -27,29 +27,6 @@ class Rasterizer:
     def get_mvp_mat(self):
         self.M_mvp[None] = self.camera.get_vp_mat() @ self.camera.get_pers_mat() @ self.camera.get_cam_mat()
 
-    def draw_line(self, begin, end):
-        line_color = [1., 1., 1.]
-        x1 = begin.x
-        y1 = begin.y
-        x2 = end.x
-        y2 = end.y
-        xe, ye, x, y = 0, 0, 0, 0
-        dx = int(x2 - x1)
-        dy = int(y2 - y1)
-        dx1 = ti.abs(dx)
-        dy1 = ti.abs(dy)
-        px = 2 * dy1 - dx1
-        py = 2 * dx1 - dy1
-        if dy1 <= dx1:
-            if dx >= 0:
-                x = x1
-                y = y1
-                xe = x2
-            else:
-                x = x2
-                y = y2
-                xe = x1
-
     @ti.kernel
     def draw_triangle(self, triangle: ti.template()):
         pa = ti.Vector([triangle.vertex[0].x, triangle.vertex[0].y])
