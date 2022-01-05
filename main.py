@@ -61,9 +61,9 @@ class Rasterizer:
             p1 = self.M_mvp[None] @ self.triangles.A[t]
             p2 = self.M_mvp[None] @ self.triangles.B[t]
             p3 = self.M_mvp[None] @ self.triangles.C[t]
-            pa = ti.Vector([p1.x, p1.y])
-            pb = ti.Vector([p2.x, p2.y])
-            pc = ti.Vector([p3.x, p3.y])
+            pa = ti.Vector([p1.x, p1.y])/p1[3]
+            pb = ti.Vector([p2.x, p2.y])/p2[3]
+            pc = ti.Vector([p3.x, p3.y])/p3[3]
             min_pos = ti.cast(ti.min(ti.min(pa, pb), pc) - 0.5, ti.i32)
             min_pos = ti.max(min_pos, ti.Vector([0, 0]))
             max_pos = ti.cast(ti.max(ti.max(pa, pb), pc) + 0.5, ti.i32)
