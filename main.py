@@ -111,7 +111,7 @@ class Camera:
 
     @ti.func
     def get_cam_mat(self):
-        w = (self.look_from[None] - self.look_at[None]).normalized()
+        w = -(self.look_from[None] - self.look_at[None]).normalized()
         u = (self.vup.cross(w)).normalized()
         v = w.cross(u)
         M_cam = ti.Matrix(
